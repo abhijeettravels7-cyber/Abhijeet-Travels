@@ -10,23 +10,75 @@
   </url>
 
   <!-- Vehicle Pages -->
+  <!-- Force Urbania Pages -->
   <url>
-    <loc>https://abhijeettravels.com/urbania-rent.html</loc>
-    <lastmod>2026-03-14</lastmod>
+    <loc>https://abhijeettravels.com/urbania/index.html</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://abhijeettravels.com/urbania/solapur.html</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://abhijeettravels.com/urbania/akkalkot.html</loc>
+    <lastmod>2026-06-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
+  <url>
+    <loc>https://abhijeettravels.com/urbania/tuljapur.html</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://abhijeettravels.com/urbania/pandharpur.html</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  
   <url>
     <loc>https://abhijeettravels.com/cruiser-rent.html</loc>
     <lastmod>2026-03-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
+
+  <!-- Tempo Traveller Pages -->
   <url>
-    <loc>https://abhijeettravels.com/tempo-traveller-hire-solapur.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://abhijeettravels.com/tempo-traveller/index.html</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://abhijeettravels.com/tempo-traveller/solapur.html</loc>
+    <lastmod>2026-06-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://abhijeettravels.com/tempo-traveller/akkalkot.html</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://abhijeettravels.com/tempo-traveller/tuljapur.html</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://abhijeettravels.com/tempo-traveller/pandharpur.html</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
   </url>
   
   <!-- Route Pages -->

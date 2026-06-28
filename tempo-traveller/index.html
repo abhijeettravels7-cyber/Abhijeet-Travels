@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMKBM4K761"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-DMKBM4K761');
+    </script>
+
+    <meta name="description"
+        content="Hire Tempo Traveller across Maharashtra. Choose from Solapur, Akkalkot, Tuljapur, and Pandharpur. 9 to 49 seater options available. AC & Non-AC.">
+    <meta name="keywords"
+        content="Tempo Traveller hire, Tempo Traveller Solapur, Tempo Traveller Akkalkot, Tempo Traveller Tuljapur, Tempo Traveller Pandharpur, mini bus rental">
+    <meta name="author" content="Abhijeet Tours & Travels">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="Tempo Traveller Hire Services | Choose Your City | Abhijeet Travels">
+    <meta property="og:description"
+        content="Rent Tempo Travellers from Solapur, Akkalkot, Tuljapur, and Pandharpur starting ₹25/km. Comfort group travels for pilgrimages.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="../images/logo.jpg">
+
+    <link rel="icon" type="image/jpg" href="../images/logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../tempo-traveller.css">
+    <style>
+        .vertical-rental-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem 0;
+        }
+
+        .vertical-box {
+            width: 100%;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            background: #0d1b2a;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            overflow: visible;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .vertical-box:hover {
+            transform: translateY(-10px) scale(1.01);
+            background-color: #1b263b;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .rental-info {
+            flex: 1.2;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            z-index: 5;
+        }
+
+        .rental-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: #FFFFFF;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .city-details {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .city-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .city-bullets li {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .city-bullets li i {
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            width: 16px;
+        }
+
+        .rental-btn-circle {
+            width: 55px;
+            height: 55px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .vertical-box:hover .rental-btn-circle {
+            background-color: var(--accent-color);
+            color: #000;
+            transform: rotate(-45deg);
+        }
+
+        .rental-visual {
+            flex: 1;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding-right: 2rem;
+        }
+
+        .city-rental-img {
+            width: 100%;
+            height: 85%;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .vertical-box:hover .city-rental-img {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .vertical-box {
+                flex-direction: column;
+                height: auto;
+                padding: 1.5rem;
+                align-items: stretch;
+            }
+
+            .rental-info {
+                flex: none;
+                padding: 1rem 0;
+                text-align: center;
+                align-items: center;
+            }
+
+            .city-bullets {
+                align-items: center;
+            }
+
+            .rental-visual {
+                flex: none;
+                height: 220px;
+                width: 100%;
+                margin-top: 1rem;
+                padding-right: 0;
+            }
+
+            .city-rental-img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    </style>
+
+    <title>Tempo Traveller Hire Services | Choose Your City | Abhijeet Travels</title>
+</head>
+
+<body>
+
+    <!-- ===================== NAVBAR ===================== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-logo">
+            <img src="../images/logo.jpg" alt="Abhijeet Travels Logo" class="logo-image">
+            <a href="../index.html">Abhijeet <span>Tours & Travels</span></a>
+        </div>
+        <ul class="navbar-links" id="navbar-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html#vehicles">Vehicles</a></li>
+            <li><a href="../index.html#routes">Routes</a></li>
+            <li><a href="../index.html#package_tours">Packages</a></li>
+            <li><a href="../index.html#testimonials">Reviews</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+            <li class="mobile-social">
+                <a href="https://wa.me/917020460865" target="_blank" aria-label="WhatsApp"><i
+                        class="fa-brands fa-whatsapp"></i></a>
+                <a href="tel:+917020460865" aria-label="Call"><i class="fa-solid fa-phone"></i></a>
+                <a href="https://www.instagram.com/abhijeettravels?utm_source=ig_web_button_share_sheet&igsh=MWoweWE3MWoyNXhueQ=="
+                    target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </li>
+        </ul>
+        <div class="navbar-social desktop-social">
+            <a href="https://wa.me/917020460865" target="_blank" aria-label="WhatsApp"><i
+                    class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/abhijeettravels?utm_source=ig_web_button_share_sheet&igsh=MWoweWE3MWoyNXhueQ=="
+                target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="tel:+91-7020460865" class="navbar-phone-btn"><i class="fas fa-phone"></i> 7020460865</a>
+        </div>
+        <div class="navbar-toggle" id="navbar-toggle" aria-label="Toggle menu" role="button" tabindex="0">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="tt-hero">
+        <div class="tt-hero-inner">
+            <div class="tt-hero-text">
+                <a href="../index.html" class="back-to-main"
+                    style="color:var(--accent-color); font-weight:600; text-decoration:none; display:inline-block; margin-bottom:1.5rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Main Page
+                </a>
+                <div class="tag-pill">
+                    <i class="fas fa-bus"></i> Large Capacity Group Travel
+                </div>
+                <h1>Tempo Traveller<br><span>Rental Portal</span></h1>
+                <p>From mini-vans to full-size luxury coaches — we provide Tempo Traveller booking across several
+                    cities. Tap your pickup city below to explore pricing and seat structures.</p>
+                <div class="tt-hero-btns">
+                    <a href="#choose-city" class="btn-tt-book">
+                        <i class="fas fa-map-marker-alt"></i> Select a City
+                    </a>
+                    <a href="tel:+917020460865" class="btn-tt-call">
+                        <i class="fas fa-phone"></i> Call Support
+                    </a>
+                </div>
+            </div>
+            <div class="tt-hero-img">
+                <img src="../images/mini bus.png" alt="Tempo Traveller Rental Portal">
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CITY CHOOSER SECTION ===================== -->
+    <section class="tt-section" id="choose-city">
+        <div class="tt-section-inner">
+            <h2 class="section-title">Select Your Pickup City</h2>
+            <p class="section-description">We provide localized pickup hubs and dedicated drivers for your journeys
+                starting from these locations.</p>
+
+            <div class="vertical-rental-grid">
+
+                <!-- Solapur -->
+                <a href="solapur.html" class="vertical-box">
+                    <div class="rental-info">
+                        <h3>Solapur</h3>
+                        <p class="city-details">
+                            Our primary station. Premium 9, 12, 17, 20, 26 and 40-seater Tempo Travellers available for
+                            outstation tours and local drop packages.
+                        </p>
+                        <ul class="city-bullets">
+                            <li><i class="fas fa-rupee-sign"></i> Starting from ₹25 / Km</li>
+                            <li><i class="fas fa-users"></i> Seating configurations: 9 to 40+ Seater</li>
+                            <li><i class="fas fa-road"></i> Ideal for Pune, Mumbai, Hyderabad, Goa tours</li>
+                        </ul>
+                        <div class="rental-btn-circle"><i class="fas fa-arrow-right"></i></div>
+                    </div>
+                    <div class="rental-visual">
+                        <img src="../images/solapur.jpg" alt="Solapur city landmark" class="city-rental-img">
+                    </div>
+                </a>
+
+                <!-- Akkalkot -->
+                <a href="akkalkot.html" class="vertical-box">
+                    <div class="rental-info">
+                        <h3>Akkalkot</h3>
+                        <p class="city-details">
+                            Dedicated Swami Samarth Maharaj temple group transport. Safe, comfortable, and reliable
+                            pilgrim packages.
+                        </p>
+                        <ul class="city-bullets">
+                            <li><i class="fas fa-rupee-sign"></i> Starting from ₹26 / Km</li>
+                            <li><i class="fas fa-users"></i> Seating configurations: 9 to 40+ Seater</li>
+                            <li><i class="fas fa-pray"></i> Best for Swami Samarth Maharaj Darshan</li>
+                        </ul>
+                        <div class="rental-btn-circle"><i class="fas fa-arrow-right"></i></div>
+                    </div>
+                    <div class="rental-visual">
+                        <img src="../images/akkalkot.jpg" alt="Akkalkot Swami Samarth Maharaj Temple"
+                            class="city-rental-img">
+                    </div>
+                </a>
+
+                <!-- Tuljapur -->
+                <a href="tuljapur.html" class="vertical-box">
+                    <div class="rental-info">
+                        <h3>Tuljapur</h3>
+                        <p class="city-details">
+                            Comfortable group transit for Shree Tulja Bhavani temple Darshan and outstation excursions
+                            with experienced drivers.
+                        </p>
+                        <ul class="city-bullets">
+                            <li><i class="fas fa-rupee-sign"></i> Starting from ₹26 / Km</li>
+                            <li><i class="fas fa-users"></i> Seating configurations: 9 to 40+ Seater</li>
+                            <li><i class="fas fa-shield-alt"></i> Safe family tours & zero hidden rates</li>
+                        </ul>
+                        <div class="rental-btn-circle"><i class="fas fa-arrow-right"></i></div>
+                    </div>
+                    <div class="rental-visual">
+                        <img src="../images/tuljapur.jpg" alt="Tuljapur Bhavani Devi Temple" class="city-rental-img">
+                    </div>
+                </a>
+
+                <!-- Pandharpur -->
+                <a href="pandharpur.html" class="vertical-box">
+                    <div class="rental-info">
+                        <h3>Pandharpur</h3>
+                        <p class="city-details">
+                            Pilgrimage travel for Vitthal Rukmini Mandir group bookings. Multi-day halts and round-trip
+                            routes available.
+                        </p>
+                        <ul class="city-bullets">
+                            <li><i class="fas fa-rupee-sign"></i> Starting from ₹26 / Km</li>
+                            <li><i class="fas fa-users"></i> Seating configurations: 9 to 40+ Seater</li>
+                            <li><i class="fas fa-clock"></i> 24/7 availability & flexible schedule</li>
+                        </ul>
+                        <div class="rental-btn-circle"><i class="fas fa-arrow-right"></i></div>
+                    </div>
+                    <div class="rental-visual">
+                        <img src="../images/pandharpur.jpg" alt="Pandharpur Vitthal Temple" class="city-rental-img">
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CAPACITY GUIDE ===================== -->
+    <section class="tt-section tt-section-alt">
+        <div class="tt-section-inner">
+            <h2 class="section-title">Fleet Sizes & Capacity Guide</h2>
+            <p class="section-description">From smaller family passenger vans to full-sized tourist coaches.</p>
+
+            <div class="tt-usecases" style="margin-top: 3rem;">
+                <div class="tt-usecase" style="background: rgba(255,255,255,0.02); padding: 2rem; border-radius: 8px;">
+                    <div class="tt-usecase-icon">🚐</div>
+                    <h4>9–13 Seater</h4>
+                    <p>Ideal for nuclear families, small wedding parties, and airport drop packages.</p>
+                </div>
+                <div class="tt-usecase" style="background: rgba(255,255,255,0.02); padding: 2rem; border-radius: 8px;">
+                    <div class="tt-usecase-icon">🚌</div>
+                    <h4>17–26 Seater</h4>
+                    <p>Best for pilgrimage groups, society excursions, and corporate outstation trips.</p>
+                </div>
+                <div class="tt-usecase" style="background: rgba(255,255,255,0.02); padding: 2rem; border-radius: 8px;">
+                    <div class="tt-usecase-icon">🚍</div>
+                    <h4>32–35 Seater</h4>
+                    <p>Perfect for mid-sized wedding parties, corporate events, and regional school trips.</p>
+                </div>
+                <div class="tt-usecase" style="background: rgba(255,255,255,0.02); padding: 2rem; border-radius: 8px;">
+                    <div class="tt-usecase-icon">🚍</div>
+                    <h4>40–49 Seater Bus</h4>
+                    <p>Designed for massive tourist gatherings, wedding guest shuttles, and school groups.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="../index.html">Abhijeet<span> Travels</span></a>
+                <p class="footer-tagline">Solapur's Trusted Cab & Tour Service since 2015</p>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html#vehicles">Fleet</a>
+                <a href="../index.html#routes">Routes</a>
+                <a href="../index.html#package_tours">Packages</a>
+                <a href="../index.html#contact">Book Now</a>
+            </div>
+            <div class="footer-contact">
+                <a href="tel:+917020460865"><i class="fas fa-phone"></i> +91 7020460865</a>
+                <a href="https://wa.me/917020460865" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                <span><i class="fas fa-map-marker-alt"></i> Solapur, Maharashtra</span>
+            </div>
+            <div class="footer-social">
+                <a href="https://wa.me/917020460865" target="_blank" aria-label="WhatsApp"><i
+                        class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/abhijeettravels?utm_source=ig_web_button_share_sheet&igsh=MWoweWE3MWoyNXhueQ=="
+                    target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/670957672757961?ref=pl_edit_xav_ig_profile_page_web" target="_blank"
+                    aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Abhijeet Tours & Travels. All Rights Reserved.</p>
+                <small class="designer-credit">Designed by Shahid Nalwar | +91-8010340573</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===================== MOBILE BOTTOM NAV ===================== -->
+    <div class="mobile-bottom-nav">
+        <a href="../index.html" class="mobile-nav-link">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="../index.html#routes" class="mobile-nav-link">
+            <i class="fas fa-route"></i>
+            <span>Routes</span>
+        </a>
+        <a href="https://wa.me/917020460865" target="_blank" class="mobile-nav-link highlight-nav">
+            <i class="fab fa-whatsapp"></i>
+            <span>Book Now</span>
+        </a>
+        <a href="tel:+917020460865" class="mobile-nav-link">
+            <i class="fas fa-phone"></i>
+            <span>Call Now</span>
+        </a>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navbar toggle
+            const navbarToggle = document.getElementById('navbar-toggle');
+            const navbarLinks = document.getElementById('navbar-links');
+            if (navbarToggle && navbarLinks) {
+                navbarToggle.addEventListener('click', () => {
+                    navbarLinks.classList.toggle('active');
+                    navbarToggle.classList.toggle('active');
+                });
+                navbarLinks.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'A') {
+                        navbarLinks.classList.remove('active');
+                        navbarToggle.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -12,7 +12,7 @@
     align-items: center;
     position: relative;
     overflow: hidden;
-    padding-top: var(--navbar-height);
+    margin-top: var(--navbar-height);
 }
 
 .vehicle-hero::before {
