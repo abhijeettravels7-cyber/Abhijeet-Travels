@@ -1535,12 +1535,27 @@ section[id], header[id] {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #FFC107; /* Your accent color */
+    color: #FFC107; /* Accent color */
     transition: all 0.3s ease;
     font-size: 1.4rem;
 }
 
-.rental-box:hover .rental-btn-circle {
+.rental-btn-circle svg {
+    width: 26px;
+    height: 26px;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    fill: none;
+    transition: transform 0.3s ease;
+}
+
+.rental-btn-circle i {
+    color: inherit;
+    font-size: 1.4rem;
+}
+
+.rental-box:hover .rental-btn-circle,
+.vertical-box:hover .rental-btn-circle {
     background-color: #FFC107; 
     color: #0D1B2A;
     transform: rotate(-45deg);
