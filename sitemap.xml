@@ -13,33 +13,57 @@
   <!-- Force Urbania Pages -->
   <url>
     <loc>https://abhijeettravels.com/urbania/index.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://abhijeettravels.com/urbania/solapur.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
     <loc>https://abhijeettravels.com/urbania/akkalkot.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://abhijeettravels.com/urbania/tuljapur.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://abhijeettravels.com/urbania/pandharpur.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://abhijeettravels.com/urbania/vijapur.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://abhijeettravels.com/urbania/solapur-to-pune-airport.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://abhijeettravels.com/urbania/solapur-to-mumbai-airport.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://abhijeettravels.com/urbania/solapur-to-hyderabad-airport.html</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
   
   <url>
