@@ -51,7 +51,7 @@
       "areaServed": ["Solapur", "Pandharpur", "Akkalkot", "Tuljapur"]
     }
     </script>
-        <!-- Favicon & Brand Icons for Google Search and Browsers -->
+    <!-- Favicon & Brand Icons for Google Search and Browsers -->
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
@@ -71,168 +71,304 @@
     <link rel="stylesheet" href="../vehicle.css">
     <title>Force Urbania on Rent | 13 to 26 Seater Luxury Van Rental | Abhijeet Travels</title>
     <style>
+        .vertical-rental-grid {
             display: flex;
             flex-direction: column;
-            gap: 2.5rem;
-            max-width: 1200px;
+            gap: 2.25rem;
+            max-width: 1140px;
             margin: 0 auto;
-            padding: 3rem 1rem 0;
+            padding: 2rem 1rem 0;
+            box-sizing: border-box;
         }
 
         .vertical-box {
             width: 100%;
-            height: 380px;
-            display: flex;
-            align-items: center;
-            background: #0d1b2a;
-            border-radius: var(--border-radius);
+            min-height: 360px;
+            height: auto;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            background: linear-gradient(145deg, #0b1726 0%, #122338 100%);
+            border-radius: 20px;
             text-decoration: none;
-            overflow: visible;
+            overflow: hidden;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+            box-sizing: border-box;
         }
 
         .vertical-box:hover {
-            transform: translateY(-10px) scale(1.01);
-            background-color: #1b263b;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            transform: translateY(-6px);
+            border-color: rgba(255, 193, 7, 0.45);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.55), 0 0 30px rgba(255, 193, 7, 0.12);
+            background: linear-gradient(145deg, #0e1e32 0%, #152b45 100%);
         }
 
-        .rental-info {
-            flex: 1.2;
-            padding: 2.5rem;
+        .vertical-box .rental-info {
+            padding: 2.25rem 2.5rem;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-            z-index: 5;
+            justify-content: center;
+            gap: 0.95rem;
+            z-index: 2;
+            min-width: 0;
+            box-sizing: border-box;
+            text-align: left;
         }
 
-        .rental-info h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: #FFFFFF;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
-        }
-
-        .city-details {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .city-bullets {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 1.5rem 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        .city-bullets li {
-            font-size: 0.9rem;
-            color: var(--text-color);
-            display: flex;
+        .card-hub-badge {
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-        }
-
-        .city-bullets li i {
             color: var(--accent-color);
-            font-size: 0.85rem;
-            width: 16px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.25);
+            padding: 0.32rem 0.85rem;
+            border-radius: 30px;
+            width: fit-content;
         }
 
-        
-        .rental-btn-circle svg {
-            width: 24px;
-            height: 24px;
+        .card-hub-badge.airport {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.3);
+            color: #38bdf8;
+        }
+
+        .vertical-box .rental-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+            color: #FFFFFF;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.25;
+        }
+
+        .vertical-box .city-details {
+            font-size: 0.93rem;
+            color: rgba(255, 255, 255, 0.75);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .vertical-box .city-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0.2rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+
+        .vertical-box .city-bullets li {
+            font-size: 0.91rem;
+            color: rgba(255, 255, 255, 0.92);
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .vertical-box .city-bullets li i {
+            color: var(--accent-color);
+            font-size: 0.88rem;
+            width: 18px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .card-cta-row {
+            margin-top: 0.35rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.65rem 1.25rem 0.65rem 1.4rem;
+            background: rgba(255, 193, 7, 0.12);
+            border: 1px solid rgba(255, 193, 7, 0.4);
+            border-radius: 50px;
+            color: var(--accent-color);
+            font-size: 0.92rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-arrow-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: #0b1726;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .cta-arrow-circle svg {
+            width: 18px;
+            height: 18px;
             stroke: currentColor;
             stroke-width: 2.5;
             fill: none;
-            transition: transform 0.3s ease;
         }
 
-        .rental-btn-circle {
-            width: 55px;
-            height: 55px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .vertical-box:hover .card-cta-btn {
+            background: var(--accent-color);
+            color: #0b1726;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.35);
+        }
+
+        .vertical-box:hover .cta-arrow-circle {
+            transform: translateX(4px);
+            background: #0b1726;
             color: var(--accent-color);
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
         }
 
-        .vertical-box:hover .rental-btn-circle {
-            background-color: var(--accent-color);
-            color: #000;
-            transform: rotate(-45deg);
-        }
-
-        .rental-visual {
-            flex: 1;
-            height: 100%;
+        .vertical-box .rental-visual {
             position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 1.25rem;
+            box-sizing: border-box;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .city-rental-img-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            border-radius: 16px;
             overflow: hidden;
-            padding-right: 2rem;
+            border: 1.5px solid rgba(255, 193, 7, 0.35);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+            background: #081018;
         }
 
         .city-rental-img {
             width: 100%;
-            height: 85%;
+            height: 100%;
             object-fit: cover;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            object-position: center;
+            display: block;
             transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .city-rental-img-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(11, 23, 38, 0.02) 65%, rgba(11, 23, 38, 0.35) 100%);
+            pointer-events: none;
         }
 
         .vertical-box:hover .city-rental-img {
             transform: scale(1.05);
         }
 
-        @media (max-width: 768px) {
+        /* ===================== TABLET & MOBILE VIEW ===================== */
+        @media (max-width: 900px) {
             .vertical-box {
+                display: flex;
                 flex-direction: column;
-                height: auto;
-                padding: 1.5rem;
-                align-items: stretch;
+                min-height: auto;
+                border-radius: 18px;
             }
 
-            .rental-info {
-                flex: none;
-                padding: 1rem 0;
-                text-align: center;
-                align-items: center;
-            }
-
-            .city-bullets {
-                align-items: center;
-            }
-
-            .rental-visual {
-                flex: none;
-                height: 220px;
+            .vertical-box .rental-visual {
+                order: 1;
+                padding: 0;
                 width: 100%;
-                margin-top: 1rem;
-                padding-right: 0;
+                height: auto;
+                box-sizing: border-box;
+            }
+
+            .city-rental-img-wrapper {
+                width: 100%;
+                aspect-ratio: 16 / 10;
+                border-radius: 18px 18px 0 0;
+                border-top: none;
+                border-left: none;
+                border-right: none;
+                border-bottom: 1.5px solid rgba(255, 193, 7, 0.35);
+                box-shadow: none;
             }
 
             .city-rental-img {
                 width: 100%;
                 height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+
+            .vertical-box .rental-info {
+                order: 2;
+                padding: 1.5rem 1.25rem 1.75rem;
+                gap: 0.85rem;
+                width: 100%;
+                text-align: left;
+            }
+
+            .vertical-box .rental-info h3 {
+                font-size: 1.45rem;
+            }
+
+            .vertical-box .city-bullets {
+                align-items: flex-start;
+            }
+
+            .card-cta-row {
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+
+            .card-cta-btn {
+                width: 100%;
+                justify-content: space-between;
+                padding: 0.75rem 1.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .vertical-rental-grid {
+                padding: 1rem 0.5rem 0;
+                gap: 1.5rem;
+            }
+
+            .vertical-box .rental-visual {
+                padding: 0;
+                width: 100%;
+            }
+
+            .city-rental-img-wrapper {
+                width: 100%;
+                aspect-ratio: 16 / 10;
+                border-radius: 18px 18px 0 0;
+            }
+
+            .vertical-box .rental-info {
+                padding: 1.25rem 1rem 1.5rem;
+            }
+
+            .vertical-box .rental-info h3 {
+                font-size: 1.25rem;
+            }
+
+            .vertical-box .city-details {
+                font-size: 0.86rem;
+            }
+
+            .vertical-box .city-bullets li {
+                font-size: 0.84rem;
             }
         }
     </style>
@@ -259,7 +395,8 @@
                 <a href="tel:+917020460865" aria-label="Call"><i class="fa-solid fa-phone"></i></a>
                 <a href="https://www.instagram.com/abhijeettravels?utm_source=ig_web_button_share_sheet&igsh=MWoweWE3MWoyNXhueQ=="
                     target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/@abhijeettravels-c8c?si=l-0UECTCsqjdKSKj" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://youtube.com/@abhijeettravels-c8c?si=l-0UECTCsqjdKSKj" target="_blank"
+                    aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             </li>
         </ul>
         <div class="navbar-social desktop-social">
@@ -267,7 +404,8 @@
                     class="fab fa-whatsapp"></i></a>
             <a href="https://www.instagram.com/abhijeettravels?utm_source=ig_web_button_share_sheet&igsh=MWoweWE3MWoyNXhueQ=="
                 target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://youtube.com/@abhijeettravels-c8c?si=l-0UECTCsqjdKSKj" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://youtube.com/@abhijeettravels-c8c?si=l-0UECTCsqjdKSKj" target="_blank"
+                aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             <a href="tel:+91-7020460865" class="navbar-phone-btn"><i class="fas fa-phone"></i> 7020460865</a>
         </div>
         <div class="navbar-toggle" id="navbar-toggle" aria-label="Toggle menu" role="button" tabindex="0">
@@ -329,6 +467,9 @@
                 <!-- Solapur -->
                 <a href="solapur.html" class="vertical-box">
                     <div class="rental-info">
+                        <div class="card-hub-badge">
+                            <i class="fas fa-map-marker-alt"></i> Primary Station Hub
+                        </div>
                         <h3>Force Urbania on Rent in Solapur</h3>
                         <p class="city-details">
                             Our primary station. Premium 13, 17, 20, and 26-seater Force Urbania available for
@@ -339,41 +480,68 @@
                             <li><i class="fas fa-users"></i> Seating configurations: 13 to 26 Seater</li>
                             <li><i class="fas fa-road"></i> Ideal for Pune, Mumbai, Hyderabad, Goa tours</li>
                         </ul>
-                        <div class="rental-btn-circle">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </div>
+                        <div class="card-cta-row">
+                            <span class="card-cta-btn">
+                                <span>Explore Solapur Fleet</span>
+                                <span class="cta-arrow-circle">
+                                    <svg viewBox="0 0 24 24">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </span>
+                            </span>
+                        </div>
                     </div>
                     <div class="rental-visual">
-                        <img src="../images/solapur.jpg" alt="Solapur city landmark" class="city-rental-img">
+                        <div class="city-rental-img-wrapper">
+                            <img src="../images/solapur.jpg" alt="Solapur city landmark - Bhuikot Fort"
+                                class="city-rental-img" loading="lazy">
+                        </div>
                     </div>
                 </a>
 
                 <!-- Akkalkot -->
                 <a href="akkalkot.html" class="vertical-box">
                     <div class="rental-info">
+                        <div class="card-hub-badge">
+                            <i class="fas fa-om"></i> Swami Samarth Maharaj Darshan
+                        </div>
                         <h3>Force Urbania on Rent in Akkalkot</h3>
                         <p class="city-details">
                             Dedicated Swami Samarth Maharaj temple group transport. Safe, comfortable, and reliable
-                            pilgrim packages.
+                            pilgrim packages with doorstep pickup.
                         </p>
                         <ul class="city-bullets">
                             <li><i class="fas fa-rupee-sign"></i> Starting from ₹34 / Km</li>
                             <li><i class="fas fa-users"></i> Seating configurations: 13 to 26 Seater</li>
                             <li><i class="fas fa-pray"></i> Best for Swami Samarth Maharaj Darshan</li>
                         </ul>
-                        <div class="rental-btn-circle">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </div>
+                        <div class="card-cta-row">
+                            <span class="card-cta-btn">
+                                <span>Explore Akkalkot Fleet</span>
+                                <span class="cta-arrow-circle">
+                                    <svg viewBox="0 0 24 24">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </span>
+                            </span>
+                        </div>
                     </div>
                     <div class="rental-visual">
-                        <img src="../images/akkalkot.jpg" alt="Akkalkot Swami Samarth Maharaj Temple"
-                            class="city-rental-img">
+                        <div class="city-rental-img-wrapper">
+                            <img src="../images/akkalkot.jpg" alt="Akkalkot Swami Samarth Maharaj Temple"
+                                class="city-rental-img" loading="lazy">
+                        </div>
                     </div>
                 </a>
 
                 <!-- Tuljapur -->
                 <a href="tuljapur.html" class="vertical-box">
                     <div class="rental-info">
+                        <div class="card-hub-badge">
+                            <i class="fas fa-place-of-worship"></i> Shree Tulja Bhavani Pilgrimage
+                        </div>
                         <h3>Force Urbania on Rent in Tuljapur</h3>
                         <p class="city-details">
                             Comfortable group transit for Shree Tulja Bhavani temple Darshan and outstation excursions
@@ -384,21 +552,36 @@
                             <li><i class="fas fa-users"></i> Seating configurations: 13 to 26 Seater</li>
                             <li><i class="fas fa-shield-alt"></i> Safe family tours & zero hidden rates</li>
                         </ul>
-                        <div class="rental-btn-circle">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </div>
+                        <div class="card-cta-row">
+                            <span class="card-cta-btn">
+                                <span>Explore Tuljapur Fleet</span>
+                                <span class="cta-arrow-circle">
+                                    <svg viewBox="0 0 24 24">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </span>
+                            </span>
+                        </div>
                     </div>
                     <div class="rental-visual">
-                        <img src="../images/tuljapur.jpg" alt="Tuljapur Bhavani Devi Temple" class="city-rental-img">
+                        <div class="city-rental-img-wrapper">
+                            <img src="../images/tuljapur.jpg" alt="Tuljapur Bhavani Devi Temple" class="city-rental-img"
+                                loading="lazy">
+                        </div>
                     </div>
                 </a>
 
                 <!-- Pandharpur -->
                 <a href="pandharpur.html" class="vertical-box">
                     <div class="rental-info">
+                        <div class="card-hub-badge">
+                            <i class="fas fa-pray"></i> Vitthal Rukmini Mandir Route
+                        </div>
                         <h3>Force Urbania on Rent in Pandharpur</h3>
                         <p class="city-details">
-                            Pilgrimage travel for Vitthal Rukmini Mandir group bookings. Multi-day halts and round-trip
+                            Pilgrimage travel for Vitthal Rukmini Mandir group bookings. Multi-day halts, flexible
+                            schedule, and round-trip
                             routes available.
                         </p>
                         <ul class="city-bullets">
@@ -406,33 +589,59 @@
                             <li><i class="fas fa-users"></i> Seating configurations: 13 to 26 Seater</li>
                             <li><i class="fas fa-clock"></i> 24/7 availability & flexible schedule</li>
                         </ul>
-                        <div class="rental-btn-circle">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </div>
+                        <div class="card-cta-row">
+                            <span class="card-cta-btn">
+                                <span>Explore Pandharpur Fleet</span>
+                                <span class="cta-arrow-circle">
+                                    <svg viewBox="0 0 24 24">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </span>
+                            </span>
+                        </div>
                     </div>
                     <div class="rental-visual">
-                        <img src="../images/pandharpur.jpg" alt="Pandharpur Vitthal Temple" class="city-rental-img">
+                        <div class="city-rental-img-wrapper">
+                            <img src="../images/pandharpur.jpg" alt="Pandharpur Vitthal Temple" class="city-rental-img"
+                                loading="lazy">
+                        </div>
                     </div>
                 </a>
 
                 <!-- Vijayapura (Bijapur) -->
                 <a href="vijapur.html" class="vertical-box">
                     <div class="rental-info">
-                        <h3>Force Urbania on Rent in Vijayapura (Bijapur)</h3>
+                        <div class="card-hub-badge">
+                            <i class="fas fa-landmark"></i> Gol Gumbaz & Heritage Tour
+                        </div>
+                        <h3>Force Urbania on Rent in Vijayapura</h3>
                         <p class="city-details">
-                            Heritage sightseeing tours for Gol Gumbaz, Ibrahim Rauza, and Adil Shahi architectural wonders with driver waiting.
+                            Heritage sightseeing tours for Gol Gumbaz, Ibrahim Rauza, and Adil Shahi architectural
+                            wonders with driver waiting.
                         </p>
                         <ul class="city-bullets">
-                            <li><i class="fas fa-rupee-sign"></i> Starting from ₹35 / Km</li>
+                            <li><i class="fas fa-rupee-sign"></i> Starting from ₹37 / Km</li>
                             <li><i class="fas fa-users"></i> Seating configurations: 13 to 26 Seater</li>
-                            <li><i class="fas fa-landmark"></i> Gol Gumbaz & Heritage circuit tours</li>
+                            <li><i class="fas fa-monument"></i> Gol Gumbaz & Heritage circuit tours</li>
                         </ul>
-                        <div class="rental-btn-circle">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </div>
+                        <div class="card-cta-row">
+                            <span class="card-cta-btn">
+                                <span>Explore Vijayapura Fleet</span>
+                                <span class="cta-arrow-circle">
+                                    <svg viewBox="0 0 24 24">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </span>
+                            </span>
+                        </div>
                     </div>
                     <div class="rental-visual">
-                        <img src="../images/vijapur.jpg" alt="Gol Gumbaz Monument Vijayapura" class="city-rental-img">
+                        <div class="city-rental-img-wrapper">
+                            <img src="../images/vijapur.jpg" alt="Gol Gumbaz Monument Vijayapura"
+                                class="city-rental-img" loading="lazy">
+                        </div>
                     </div>
                 </a>
 
@@ -443,11 +652,15 @@
     <!-- ===================== AIRPORT TRANSFER SERVICES ===================== -->
     <section class="vehicle-section" style="background: #081018; border-top: 1px solid rgba(255, 255, 255, 0.05);">
         <div class="section-inner">
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+            <div
+                style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
                 <div>
-                    <span class="slide-badge" style="display: inline-block; margin-bottom: 0.5rem;">✈️ 24/7 Flight Transfers</span>
-                    <h2 class="section-title" style="margin: 0; text-align: left;">Urbania Airport Transfer Services</h2>
-                    <p class="section-description" style="margin: 0.5rem 0 0; text-align: left;">Luxury door-to-terminal airport drop-offs and arrival pickups with flight tracking and large luggage capacity.</p>
+                    <span class="slide-badge" style="display: inline-block; margin-bottom: 0.5rem;">✈️ 24/7 Flight
+                        Transfers</span>
+                    <h2 class="section-title" style="margin: 0; text-align: left;">Urbania Airport Transfer Services
+                    </h2>
+                    <p class="section-description" style="margin: 0.5rem 0 0; text-align: left;">Luxury door-to-terminal
+                        airport drop-offs and arrival pickups with flight tracking and large luggage capacity.</p>
                 </div>
             </div>
 
@@ -456,72 +669,108 @@
                 <!-- Solapur ⇄ Pune Airport -->
                 <a href="solapur-to-pune-airport.html" class="vertical-box">
                     <div class="rental-info">
-                        <div style="display:flex; align-items:center; gap: 0.5rem; color: var(--accent-color); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">
-                            <i class="fas fa-plane"></i> PNQ Airport Express
+                        <div class="card-hub-badge airport">
+                            <i class="fas fa-plane-departure"></i> PNQ Airport Express
                         </div>
                         <h3>Solapur ⇄ Pune Airport</h3>
                         <p class="city-details">
-                            Direct 260 km highway transit via NH 65 to Pune Airport (Lohegaon). Available for both Solapur departure drops and Pune arrival pickups.
+                            Direct 260 km highway transit via NH 65 to Pune Airport (Lohegaon). Available for both
+                            Solapur departure drops and Pune arrival pickups.
                         </p>
                         <ul class="city-bullets">
                             <li><i class="fas fa-clock"></i> Travel time: 4.5 – 5.5 Hours</li>
-                            <li><i class="fas fa-suitcase"></i> Fits 15–25 heavy check-in suitcases</li>
+                            <li><i class="fas fa-suitcase-rolling"></i> Fits 15–25 heavy check-in suitcases</li>
                             <li><i class="fas fa-route"></i> 24/7 midnight & early morning departures</li>
                         </ul>
-                        <div class="rental-btn-circle">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        <div class="card-cta-row">
+                            <span class="card-cta-btn">
+                                <span>View Pune Airport Rates</span>
+                                <span class="cta-arrow-circle">
+                                    <svg viewBox="0 0 24 24">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </span>
+                            </span>
                         </div>
                     </div>
                     <div class="rental-visual">
-                        <img src="../images/pune.jpg" alt="Pune Airport Force Urbania Cab" class="city-rental-img">
+                        <div class="city-rental-img-wrapper">
+                            <img src="../images/pune.jpg" alt="Pune Airport Force Urbania Cab" class="city-rental-img"
+                                loading="lazy">
+                        </div>
                     </div>
                 </a>
 
                 <!-- Solapur ⇄ Mumbai Airport -->
                 <a href="solapur-to-mumbai-airport.html" class="vertical-box">
                     <div class="rental-info">
-                        <div style="display:flex; align-items:center; gap: 0.5rem; color: var(--accent-color); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">
-                            <i class="fas fa-plane"></i> CSMIA T1 & T2 International
+                        <div class="card-hub-badge airport">
+                            <i class="fas fa-plane-departure"></i> CSMIA T1 & T2 International
                         </div>
                         <h3>Solapur ⇄ Mumbai Airport</h3>
                         <p class="city-details">
-                            Comfortable 400 km transit via Expressway to Terminal 1 & 2. Sleep-ready pushback recliners and massive luggage room for international flights.
+                            Comfortable 400 km transit via Expressway to Terminal 1 & 2. Sleep-ready pushback recliners
+                            and massive luggage room for international flights.
                         </p>
                         <ul class="city-bullets">
                             <li><i class="fas fa-clock"></i> Travel time: 7.5 – 8.5 Hours</li>
                             <li><i class="fas fa-bed"></i> Reclining seats for comfortable night sleep</li>
                             <li><i class="fas fa-globe"></i> Direct T2 International & T1 Domestic drop/pickup</li>
                         </ul>
-                        <div class="rental-btn-circle">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        <div class="card-cta-row">
+                            <span class="card-cta-btn">
+                                <span>View Mumbai Airport Rates</span>
+                                <span class="cta-arrow-circle">
+                                    <svg viewBox="0 0 24 24">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </span>
+                            </span>
                         </div>
                     </div>
                     <div class="rental-visual">
-                        <img src="../images/mumbai.jpg" alt="Mumbai Airport Force Urbania Cab" class="city-rental-img">
+                        <div class="city-rental-img-wrapper">
+                            <img src="../images/mumbai.jpg" alt="Mumbai Airport Force Urbania Cab"
+                                class="city-rental-img" loading="lazy">
+                        </div>
                     </div>
                 </a>
 
                 <!-- Solapur ⇄ Hyderabad Airport -->
                 <a href="solapur-to-hyderabad-airport.html" class="vertical-box">
                     <div class="rental-info">
-                        <div style="display:flex; align-items:center; gap: 0.5rem; color: var(--accent-color); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">
-                            <i class="fas fa-plane"></i> RGIA Shamshabad Express
+                        <div class="card-hub-badge airport">
+                            <i class="fas fa-plane-departure"></i> RGIA Shamshabad Express
                         </div>
                         <h3>Solapur ⇄ Hyderabad Airport</h3>
                         <p class="city-details">
-                            Swift 310 km transit via NH 65 & Nehru Outer Ring Road (ORR) straight to Shamshabad without city traffic delays.
+                            Swift 310 km transit via NH 65 & Nehru Outer Ring Road (ORR) straight to Shamshabad without
+                            city traffic delays.
                         </p>
                         <ul class="city-bullets">
                             <li><i class="fas fa-clock"></i> Travel time: 5.5 – 6.5 Hours</li>
                             <li><i class="fas fa-road"></i> Direct ORR highway bypassing city congestion</li>
                             <li><i class="fas fa-passport"></i> Ideal for Umrah/Hajj & overseas flights</li>
                         </ul>
-                        <div class="rental-btn-circle">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        <div class="card-cta-row">
+                            <span class="card-cta-btn">
+                                <span>View Hyderabad Airport Rates</span>
+                                <span class="cta-arrow-circle">
+                                    <svg viewBox="0 0 24 24">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </span>
+                            </span>
                         </div>
                     </div>
                     <div class="rental-visual">
-                        <img src="../images/hyderabad.jpg" alt="Hyderabad Airport Force Urbania Cab" class="city-rental-img">
+                        <div class="city-rental-img-wrapper">
+                            <img src="../images/hyderabad.jpg" alt="Hyderabad Airport Force Urbania Cab"
+                                class="city-rental-img" loading="lazy">
+                        </div>
                     </div>
                 </a>
 
@@ -533,7 +782,8 @@
     <section class="urbania-slider-section" id="vehicle-gallery">
         <div class="section-inner">
             <h2 class="section-title">Force Urbania Vehicle Tour — 360° All Sides</h2>
-            <p class="section-description">Inspect our luxury Force Urbania fleet from every angle — front profile, driver and passenger sides, rear luggage doors, interior cabin, and cockpit.</p>
+            <p class="section-description">Inspect our luxury Force Urbania fleet from every angle — front profile,
+                driver and passenger sides, rear luggage doors, interior cabin, and cockpit.</p>
 
             <div class="urbania-slider-container" id="urbania-slider">
                 <!-- Previous Button -->
@@ -643,7 +893,8 @@
                         class="fab fa-whatsapp"></i></a>
                 <a href="https://www.instagram.com/abhijeettravels?utm_source=ig_web_button_share_sheet&igsh=MWoweWE3MWoyNXhueQ=="
                     target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/@abhijeettravels-c8c?si=l-0UECTCsqjdKSKj" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://youtube.com/@abhijeettravels-c8c?si=l-0UECTCsqjdKSKj" target="_blank"
+                    aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 <a href="https://www.facebook.com/670957672757961?ref=pl_edit_xav_ig_profile_page_web" target="_blank"
                     aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
             </div>
