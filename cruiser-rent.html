@@ -367,6 +367,10 @@
                             <input type="tel" name="mobile" placeholder="+91 XXXXX XXXXX" required>
                         </div>
                         <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email</label>
+                            <input type="email" name="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="form-group">
                             <label><i class="fas fa-map-marker-alt"></i> Pickup Location</label>
                             <input type="text" name="source" placeholder="e.g. Solapur city" value="Solapur">
                         </div>
@@ -551,6 +555,7 @@
 
                     const name        = vehicleForm.querySelector('input[name="name"]').value.trim();
                     const mobile      = vehicleForm.querySelector('input[name="mobile"]').value.trim();
+                    const email       = vehicleForm.querySelector('input[name="email"]')?.value.trim() || '';
                     const source      = vehicleForm.querySelector('input[name="source"]').value.trim();
                     const destination = vehicleForm.querySelector('input[name="destination"]').value.trim();
                     const dateInput   = vehicleForm.querySelector('input[name="date"]').value;
@@ -565,6 +570,10 @@
                     // Validate
                     if (!/^(\+91|91)?[6-9]\d{9}$/.test(mobile.replace(/\s+/g, ''))) {
                         showFormMessage(vehicleForm, 'error', 'Please enter a valid 10-digit mobile number.');
+                        return;
+                    }
+                    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                        showFormMessage(vehicleForm, 'error', 'Please enter a valid email address.');
                         return;
                     }
                     if (!dateInput) {
@@ -584,7 +593,7 @@
                     const destinationFull = notes ? destination + ' | Notes: ' + notes : destination;
 
                     const templateParams = {
-                        name, mobile, source,
+                        name, mobile, email, source,
                         destination: destinationFull,
                         date, vehicle, triptype, passengers
                     };

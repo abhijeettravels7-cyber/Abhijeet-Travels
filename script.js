@@ -1,20 +1,11 @@
 // ============================================================
 //  Abhijeet Tours & Travels — script.js
-//  EmailJS Integration: service_von5gvj / template_vp647bm
+//  Google Apps Script Integration (replaces EmailJS)
 // ============================================================
 
-// --- Initialise EmailJS safely (if SDK loaded in head) ---
-if (typeof emailjs !== 'undefined') {
-    try {
-        emailjs.init('Zt4jAYrHVAMrOCPuF');
-    } catch (e) {
-        console.warn('EmailJS init skipped:', e);
-    }
-}
-
-// EmailJS config
-const EMAILJS_SERVICE_ID  = 'service_von5gvj';
-const EMAILJS_TEMPLATE_ID = 'template_vp647bm';
+// --- Google Apps Script Web App URL ---
+// Replace this with your deployed Google Apps Script URL (see admin/google-apps-script.js for setup)
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxg1A9YBLLHbkZYLvBST1iPpjT3MgMYUMyf48ohMPxaurzOs0Om9E6mgycAN3BFKUmKew/exec';  // <-- Paste your deployed Web App URL here
 
 // ============================================================
 //  Show inline success / error message inside the form
@@ -67,19 +58,23 @@ function setButtonLoading(btn, loading) {
 
 // ============================================================
 //  Reusable booking form submit handler
+//  Now sends to Google Apps Script instead of EmailJS
 // ============================================================
 const handleFormSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
 
-    const name        = form.querySelector('input[name="name"]').value.trim();
-    const mobile      = form.querySelector('input[name="mobile"]').value.trim();
-    const source      = form.querySelector('input[name="source"]').value.trim();
+    const name = form.querySelector('input[name="name"]').value.trim();
+    const mobile = form.querySelector('input[name="mobile"]').value.trim();
+    const email = form.querySelector('input[name="email"]')?.value.trim() || '';
+    const source = form.querySelector('input[name="source"]').value.trim();
     const destination = form.querySelector('input[name="destination"]').value.trim();
-    const dateInput   = form.querySelector('input[name="date"]').value;
-    const vehicle     = form.querySelector('select[name="vehicle"]')?.value || 'Not specified';
-    const triptype    = form.querySelector('select[name="triptype"]')?.value || 'Not specified';
-    const passengers  = form.querySelector('input[name="passengers"]')?.value || 'Not specified';
+    const dateInput = form.querySelector('input[name="date"]').value;
+    const vehicle = form.querySelector('select[name="vehicle"]')?.value || 'Not specified';
+    const triptype = form.querySelector('select[name="triptype"]')?.value || 'Not specified';
+    const passengers = form.querySelector('input[name="passengers"]')?.value
+        || form.querySelector('select[name="passengers"]')?.value
+        || 'Not specified';
 
     // Validate mobile
     if (!/^(\+91|91)?[6-9]\d{9}$/.test(mobile.replace(/\s+/g, ''))) {
@@ -93,6 +88,12 @@ const handleFormSubmit = (event) => {
         return;
     }
 
+    // Validate email (if field exists and has value)
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFormMessage(form, 'error', 'Please enter a valid email address.');
+        return;
+    }
+
     // Format date
     const date = new Date(dateInput).toLocaleDateString('en-IN', {
         day: 'numeric',
@@ -100,9 +101,11 @@ const handleFormSubmit = (event) => {
         year: 'numeric'
     });
 
-    const templateParams = {
+    const payload = {
+        action: 'booking_inquiry',
         name,
         mobile,
+        email,
         source,
         destination,
         date,
@@ -117,24 +120,49 @@ const handleFormSubmit = (event) => {
     const existing = form.querySelector('.form-status-msg');
     if (existing) existing.remove();
 
-    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
-        .then(() => {
-            showFormMessage(form, 'success', "Booking request sent! We'll call you shortly to confirm.");
-            form.reset();
-            // Restore pre-filled default values
-            const sourceField = form.querySelector('input[name="source"]');
-            const destField   = form.querySelector('input[name="destination"]');
-            if (sourceField && sourceField.defaultValue) sourceField.value = sourceField.defaultValue;
-            if (destField   && destField.defaultValue)   destField.value   = destField.defaultValue;
+    // Send to Google Apps Script
+    if (APPS_SCRIPT_URL) {
+        fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(payload)
         })
-        .catch((error) => {
-            console.error('EmailJS error:', error);
-            showFormMessage(form, 'error', 'Something went wrong. Please call us on +91 7020460865.');
-        })
-        .finally(() => {
-            if (submitBtn) setButtonLoading(submitBtn, false);
-        });
+            .then(response => response.json())
+            .then(result => {
+                if (result.result === 'success') {
+                    showFormMessage(form, 'success', "Thank you! Booking request received. We'll call you shortly to confirm. A confirmation email has been sent to your inbox.");
+                    form.reset();
+                    // Restore pre-filled default values
+                    const sourceField = form.querySelector('input[name="source"]');
+                    const destField = form.querySelector('input[name="destination"]');
+                    if (sourceField && sourceField.defaultValue) sourceField.value = sourceField.defaultValue;
+                    if (destField && destField.defaultValue) destField.value = destField.defaultValue;
+                } else {
+                    showFormMessage(form, 'error', 'Something went wrong. Please call us on +91 7020460865.');
+                }
+            })
+            .catch((error) => {
+                console.error('Submission error:', error);
+                showFormMessage(form, 'error', 'Something went wrong. Please call us on +91 7020460865.');
+            })
+            .finally(() => {
+                if (submitBtn) setButtonLoading(submitBtn, false);
+            });
+    } else {
+        // Fallback: open WhatsApp with the booking details
+        const waMsg = `New Booking Request:\nName: ${name}\nPhone: ${mobile}\nEmail: ${email}\nFrom: ${source}\nTo: ${destination}\nDate: ${date}\nVehicle: ${vehicle}\nTrip: ${triptype}\nPassengers: ${passengers}`;
+        const waPhone = '917020460865';
+        window.open(`https://wa.me/${waPhone}?text=${encodeURIComponent(waMsg)}`, '_blank');
+        showFormMessage(form, 'success', "Booking request sent via WhatsApp! We'll call you shortly to confirm.");
+        form.reset();
+        const sourceField = form.querySelector('input[name="source"]');
+        const destField = form.querySelector('input[name="destination"]');
+        if (sourceField && sourceField.defaultValue) sourceField.value = sourceField.defaultValue;
+        if (destField && destField.defaultValue) destField.value = destField.defaultValue;
+        if (submitBtn) setButtonLoading(submitBtn, false);
+    }
 };
+
 
 // ============================================================
 //  DOM Ready
@@ -143,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Navbar ---
     const navbarToggle = document.getElementById('navbar-toggle');
-    const navbarLinks  = document.getElementById('navbar-links');
+    const navbarLinks = document.getElementById('navbar-links');
 
     if (navbarToggle && navbarLinks) {
         navbarToggle.addEventListener('click', () => {
@@ -165,17 +193,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Ticker ---
     const destinations = [
-        { name: 'Solapur',    image: 'images/ajanta.jpg'     },
-        { name: 'Akkalkot',   image: 'images/akkalkot.jpg'   },
-        { name: 'Tuljapur',   image: 'images/tuljapur.jpg'   },
+        { name: 'Solapur', image: 'images/ajanta.jpg' },
+        { name: 'Akkalkot', image: 'images/akkalkot.jpg' },
+        { name: 'Tuljapur', image: 'images/tuljapur.jpg' },
         { name: 'Pandharpur', image: 'images/pandharpur.jpg' },
-        { name: 'Pune',       image: 'images/pune.jpg'       },
-        { name: 'Mumbai',     image: 'images/mumbai.jpg'     },
-        { name: 'Nashik',     image: 'images/nashik.jpg'     },
-        { name: 'Kolhapur',   image: 'images/kolhapur.jpg'   },
+        { name: 'Pune', image: 'images/pune.jpg' },
+        { name: 'Mumbai', image: 'images/mumbai.jpg' },
+        { name: 'Nashik', image: 'images/nashik.jpg' },
+        { name: 'Kolhapur', image: 'images/kolhapur.jpg' },
         { name: 'Ahmednagar', image: 'images/ahmednagar.jpg' },
-        { name: 'Shirdi',     image: 'images/shirdi.jpg'     },
-        { name: 'Thane',      image: 'images/thane.jpg'      }
+        { name: 'Shirdi', image: 'images/shirdi.jpg' },
+        { name: 'Thane', image: 'images/thane.jpg' }
     ];
 
     const tickerWrapper = document.getElementById('ticker-wrapper');
@@ -198,11 +226,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Attach form handlers ---
-    const heroBookingForm    = document.getElementById('hero-booking-form');
+    const heroBookingForm = document.getElementById('hero-booking-form') || document.getElementById('hero-form');
     const contactBookingForm = document.getElementById('contact-booking-form');
 
-    if (heroBookingForm)    heroBookingForm.addEventListener('submit', handleFormSubmit);
+    if (heroBookingForm) heroBookingForm.addEventListener('submit', handleFormSubmit);
     if (contactBookingForm) contactBookingForm.addEventListener('submit', handleFormSubmit);
+
+    // Global EmailJS Bridge: Redirects any legacy emailjs.send calls from subpages to Google Apps Script
+    window.emailjs = {
+        init: function () { },
+        send: function (serviceId, templateId, templateParams) {
+            const emailInput = document.querySelector('form input[name="email"]');
+            const emailVal = templateParams.email || (emailInput ? emailInput.value.trim() : '');
+
+            const payload = {
+                action: 'booking_inquiry',
+                name: templateParams.name || '',
+                mobile: templateParams.mobile || '',
+                email: emailVal,
+                source: templateParams.source || 'Solapur',
+                destination: templateParams.destination || '',
+                date: templateParams.date || '',
+                vehicle: templateParams.vehicle || 'Not specified',
+                triptype: templateParams.triptype || 'Not specified',
+                passengers: templateParams.passengers || 'Not specified'
+            };
+
+            if (APPS_SCRIPT_URL) {
+                return fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                }).then(res => res.json());
+            } else {
+                // If APPS_SCRIPT_URL is not set yet, fallback to opening WhatsApp
+                const waMsg = `New Booking Request:\nName: ${payload.name}\nPhone: ${payload.mobile}\nEmail: ${payload.email}\nFrom: ${payload.source}\nTo: ${payload.destination}\nDate: ${payload.date}\nVehicle: ${payload.vehicle}`;
+                window.open(`https://wa.me/917020460865?text=${encodeURIComponent(waMsg)}`, '_blank');
+                return Promise.resolve({ result: 'success' });
+            }
+        }
+    };
 
     // --- Force Urbania Vehicle Gallery Slider ---
     initUrbaniaSlider();
@@ -252,11 +315,11 @@ function initUrbaniaSlider() {
 
     // Detect path relative to current page location (works for file://, local server, and production)
     const normPath = window.location.pathname.toLowerCase().replace(/\\/g, '/');
-    const isSubfolder = normPath.includes('/urbania/') || 
-                        normPath.includes('/tempo-traveller/') || 
-                        normPath.includes('/routes/') ||
-                        Boolean(document.querySelector('script[src^="../"]')) ||
-                        Boolean(document.querySelector('link[href^="../"]'));
+    const isSubfolder = normPath.includes('/urbania/') ||
+        normPath.includes('/tempo-traveller/') ||
+        normPath.includes('/routes/') ||
+        Boolean(document.querySelector('script[src^="../"]')) ||
+        Boolean(document.querySelector('link[href^="../"]'));
     const basePath = isSubfolder ? '../images/Urbania/' : 'images/Urbania/';
 
     // Render all images with their natural 3:4 ratio

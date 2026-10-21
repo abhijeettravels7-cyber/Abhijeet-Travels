@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Billing & Invoice — Abhijeet Travels</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="../favicon.ico">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="billing.css?v=2.6">
+    <!-- html2pdf.js for client-side PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="admin-topbar">
+        <div class="brand">
+            <img src="../images/logo.jpg" alt="Abhijeet Travels">
+            <div>
+                <h1>Abhijeet <span>Travels</span></h1>
+            </div>
+            <span class="badge">Billing & Invoice</span>
+        </div>
+        <div class="topbar-actions">
+            <button class="btn btn-primary" onclick="downloadPDF()">
+                <i class="fas fa-file-pdf"></i> Download PDF
+            </button>
+            <button class="btn btn-outline" onclick="printInvoice()">
+                <i class="fas fa-print"></i> Print
+            </button>
+            <button class="btn btn-success" onclick="sendInvoiceEmail()">
+                <i class="fas fa-envelope"></i> Send Email
+            </button>
+            <button class="btn btn-whatsapp" onclick="shareWhatsApp()">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </button>
+            <button class="btn btn-outline" onclick="openHistory()">
+                <i class="fas fa-history"></i> Recent Invoices (<span id="historyCount">0</span>)
+            </button>
+            <button class="btn btn-danger" onclick="clearForm()">
+                <i class="fas fa-eraser"></i> Clear
+            </button>
+            <a href="../index.html" class="btn btn-outline" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Website
+            </a>
+        </div>
+    </header>
+
+    <!-- Split Screen Container -->
+    <div class="admin-container">
+
+        <!-- Left Column: Form -->
+        <aside class="form-panel">
+            <div class="panel-header">
+                <h2><i class="fas fa-file-invoice" style="color:var(--maroon);"></i> Booking Details</h2>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Updates preview live</span>
+            </div>
+
+            <!-- Invoice Reference -->
+            <div class="form-section">
+                <div class="section-label"><i class="fas fa-hashtag"></i> Invoice Info</div>
+                <div class="form-row triplet">
+                    <div class="form-group">
+                        <label>Invoice No</label>
+                        <input type="text" id="invNumber" value="AT-2026-0001" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="invDate" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Time</label>
+                        <input type="time" id="invTime" oninput="updatePreview()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Details (Bill To) -->
+            <div class="form-section">
+                <div class="section-label"><i class="fas fa-user"></i> Bill To (Customer)</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Customer Name *</label>
+                        <input type="text" id="customerName" placeholder="e.g. Ajinkya Jadhav"
+                            oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number *</label>
+                        <input type="tel" id="customerPhone" placeholder="e.g. 9022660311" oninput="updatePreview()">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Customer Email (for sending PDF)</label>
+                    <input type="email" id="customerEmail" placeholder="customer@example.com">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Pickup Location</label>
+                        <input type="text" id="pickupLocation" value="Solapur" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Pickup Time</label>
+                        <input type="time" id="pickupTime" value="00:00" oninput="updatePreview()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vehicle & Trip Info -->
+            <div class="form-section">
+                <div class="section-label"><i class="fas fa-car"></i> Vehicle & Trip Info</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Vehicle Type *</label>
+                        <select id="vehicleType" onchange="updatePreview()">
+                            <option value="Force Cruiser AC">Force Cruiser AC</option>
+                            <option value="Force Cruiser Non-AC">Force Cruiser Non-AC</option>
+                            <option value="Force Urbania (16 Seater)">Force Urbania (16 Seater)</option>
+                            <option value="Tempo Traveller">Tempo Traveller</option>
+                            <option value="Innova Crysta (7-Seater)">Innova Crysta (7-Seater)</option>
+                            <option value="Maruti Suzuki Ertiga">Maruti Suzuki Ertiga</option>
+                            <option value="Sedan (Dzire / Etios)">Sedan (Dzire / Etios)</option>
+                            <option value="Hatchback (Swift / WagonR)">Hatchback (Swift / WagonR)</option>
+                            <option value="Bus (32-50 Seater)">Bus (32-50 Seater)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Vehicle Number (Optional)</label>
+                        <input type="text" id="vehicleReg" placeholder="e.g. MH13EB0821" oninput="updatePreview()">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Travel From Date</label>
+                        <input type="date" id="dateFrom" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Travel To Date</label>
+                        <input type="date" id="dateTo" oninput="updatePreview()">
+                    </div>
+                </div>
+
+                <!-- Places To Visit -->
+                <div class="form-group">
+                    <label>Places to Visit (Quick Select)</label>
+                    <div class="place-tags" id="placeTags"></div>
+                    <div style="display:flex; gap:0.4rem; margin-top:0.3rem;">
+                        <input type="text" id="customPlaceInput" placeholder="Add custom place (Press Enter)"
+                            style="flex:1;">
+                        <button type="button" class="btn btn-outline" onclick="addCustomPlace()">Add</button>
+                    </div>
+                    <div class="selected-places-display" id="selectedPlacesBox"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Drop Info / Final Drop</label>
+                        <input type="text" id="dropInfo" placeholder="e.g. Jejuri Drop Only" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Start Km Policy</label>
+                        <input type="text" id="kmPolicy" value="Start Km Office To Office" oninput="updatePreview()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Billing & Rates Structure -->
+            <div class="form-section">
+                <div class="section-label"><i class="fas fa-rupee-sign"></i> Package & Rates</div>
+                <div class="form-row triplet">
+                    <div class="form-group">
+                        <label>Duration / Days</label>
+                        <input type="text" id="durationDays" value="2 Days" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Km Limit</label>
+                        <input type="text" id="kmLimit" value="600 km Limit" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Extra Km Rate</label>
+                        <input type="text" id="extraKmRate" value="₹20 / Km" oninput="updatePreview()">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Base Package Rate (₹)</label>
+                        <input type="number" id="baseRate" value="1200" oninput="calculateTotals()">
+                    </div>
+                    <div class="form-group">
+                        <label>Toll, Parking & Bata (₹)</label>
+                        <input type="text" id="tollParkingText" value="All Included" oninput="updatePreview()">
+                    </div>
+                </div>
+
+                <div class="form-row triplet">
+                    <div class="form-group">
+                        <label>Total Package Amount (₹) *</label>
+                        <input type="number" id="totalAmount" value="19500" oninput="calculateTotals()">
+                    </div>
+                    <div class="form-group">
+                        <label>Advance Paid (₹)</label>
+                        <input type="number" id="advancePaid" value="2000" oninput="calculateTotals()">
+                    </div>
+                    <div class="form-group">
+                        <label>Balance Amount (₹)</label>
+                        <input type="number" id="balanceAmount" value="17500" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Balance Note (Shown on Invoice)</label>
+                    <input type="text" id="balanceNote" value="As per Km Calculate & Toll Parking"
+                        oninput="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label>Amount in Words</label>
+                    <input type="text" id="amountInWords" value="Nineteen Thousand Five Hundred Rupees Only."
+                        oninput="updatePreview()">
+                </div>
+            </div>
+
+            <!-- Terms & Conditions -->
+            <div class="form-section">
+                <div class="section-label"><i class="fas fa-gavel"></i> Terms & Important Notes</div>
+                <div class="form-group">
+                    <label>Terms & Conditions (One per line)</label>
+                    <textarea id="termsInput" rows="5" oninput="updatePreview()">1. No AC in ghat section.
+2. Extra km beyond limit will be charged as per specified rate.
+3. After 12:00 AM, night driver bhatta / hourly charges applicable.
+4. Other states border tax & permit to be paid directly as per actual.
+5. In case booking date or km extends, extra charges will be applicable.
+6. Customers are requested to take care of their belongings. Driver/Owner is not responsible for lost items.
+7. Advance payment is non-refundable upon booking cancellation.</textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Coordinator Name</label>
+                        <input type="text" id="coordName" value="Mr. Prasenjeet Waghmare" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Coordinator Contact</label>
+                        <input type="text" id="coordMobile" value="+91 7020460865" oninput="updatePreview()">
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right Column: Live Invoice Preview (Matching User's Format) -->
+        <main class="preview-panel">
+            <div class="preview-toolbar">
+                <div class="preview-toolbar-title">
+                    <i class="fas fa-eye"></i> Live Invoice Preview
+                </div>
+                <div class="preview-toolbar-actions">
+                    <button class="btn btn-primary" onclick="downloadPDF()">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </button>
+                    <button class="btn btn-outline" onclick="printInvoice()">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                    <button class="btn btn-success" onclick="sendInvoiceEmail()">
+                        <i class="fas fa-envelope"></i> Send Email
+                    </button>
+                    <button class="btn btn-whatsapp" onclick="shareWhatsApp()">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <!-- INVOICE DOCUMENT WRAPPER FOR MOBILE SCROLLING -->
+            <div class="invoice-wrapper">
+                <div class="invoice-page" id="invoiceDocument">
+
+                    <!-- Header: Brand & Meta -->
+                    <div class="inv-header">
+                        <div class="inv-brand-block">
+                            <img src="../images/logo.jpg" alt="Logo" class="inv-logo">
+                            <div class="inv-company-details">
+                                <h2 style="color:#1e40af;">Abhijeet Tours & Travels</h2>
+                                <p>Shop No. 4, Solapur City Center,</p>
+                                <p>Solapur, Maharashtra - 413001</p>
+                                <p><strong>Mobile:</strong> +91 7020460865 / 917020460865</p>
+                                <p><strong>Website:</strong> www.abhijeettravels.com</p>
+                            </div>
+                        </div>
+                        <div class="inv-meta-block">
+                            <div class="inv-main-title">Invoice</div>
+                            <table class="inv-meta-table">
+                                <tr>
+                                    <td class="meta-label">Number:</td>
+                                    <td class="meta-val" id="prevInvNum">AT-2026-0001</td>
+                                </tr>
+                                <tr>
+                                    <td class="meta-label">Date:</td>
+                                    <td class="meta-val" id="prevInvDate">21 Oct 2026</td>
+                                </tr>
+                                <tr>
+                                    <td class="meta-label">Time:</td>
+                                    <td class="meta-val" id="prevInvTime">12:00 PM</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Two-Column Info Bar with Soft Blue Header -->
+                    <div class="inv-info-row">
+                        <!-- Bill To -->
+                        <div class="inv-info-card">
+                            <div class="inv-card-header">BILL TO</div>
+                            <div class="inv-card-body">
+                                <div class="cust-name" id="prevCustName">Ajinkya Jadhav</div>
+                                <div class="cust-phone" id="prevCustPhone">9022660311</div>
+                                <div class="info-line"><strong>Pickup:</strong> <span id="prevPickup">Solapur</span>
+                                </div>
+                                <div class="info-line"><strong>Pickup Time:</strong> <span id="prevPickupTime">12:00
+                                        AM</span></div>
+                                <div class="info-line" id="prevEmailRow" style="display:none;"><strong>Email:</strong>
+                                    <span id="prevCustEmail">—</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vehicle & Trip Info -->
+                        <div class="inv-info-card">
+                            <div class="inv-card-header">VEHICLE & TRIP INFO</div>
+                            <div class="inv-card-body">
+                                <div class="info-line"><strong>Veh. No:</strong> <span id="prevVehReg">MH13EB0821</span>
+                                </div>
+                                <div class="info-line"><strong>Vehicle:</strong> <span id="prevVehicleName"
+                                        style="font-weight:700; color:#000000;">Force Cruiser AC</span></div>
+                                <div class="info-line"><strong>Dates:</strong> <span id="prevDates">21/10/2026 To
+                                        22/10/2026</span></div>
+                                <div class="info-line"><strong>Places:</strong> <span id="prevPlaces">Akkalkot,
+                                        Pandharpur, Tuljapur</span></div>
+                                <div class="info-line"><strong>Start Km:</strong> <span id="prevKmPolicyText">Office To
+                                        Office</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Line Items Table with Vertical Column Dividers -->
+                    <div class="inv-table-section">
+                        <table class="inv-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:5%; text-align:center;">#</th>
+                                    <th style="width:47%;">Service / Item Details</th>
+                                    <th style="width:13%; text-align:center;">Qt / Days</th>
+                                    <th style="width:11%; text-align:right;">Rate</th>
+                                    <th style="width:10%; text-align:right;">Disc.</th>
+                                    <th style="width:14%; text-align:right;">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Category Row -->
+                                <tr>
+                                    <td colspan="6" class="inv-table-category">Travel Booking & Vehicle Package</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-num border-r">1</td>
+                                    <td class="col-desc border-r">
+                                        <span id="prevItemTitle">Force Cruiser AC — Booking Package</span>
+                                        <span class="subtext" id="prevItemSubtext">Pickup: Solapur | Tour: Akkalkot,
+                                            Pandharpur, Tuljapur</span>
+                                    </td>
+                                    <td class="col-qty border-r" id="prevItemQty">2 Days</td>
+                                    <td class="col-rate" id="prevItemRate">1200</td>
+                                    <td class="col-disc border-r">0.0%</td>
+                                    <td class="col-amt" id="prevItemBaseAmt">19500.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-num border-r">2</td>
+                                    <td class="col-desc border-r">
+                                        Extra Km Rate Clause
+                                        <span class="subtext">Applicable beyond package km limit</span>
+                                    </td>
+                                    <td class="col-qty border-r" id="prevKmLimitText">600 km Limit</td>
+                                    <td class="col-rate" id="prevExtraKmText">₹20 / Km</td>
+                                    <td class="col-disc border-r">—</td>
+                                    <td class="col-amt">As Per Actual</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-num border-r">3</td>
+                                    <td class="col-desc border-r">
+                                        Toll, Parking & Driver Bata
+                                        <span class="subtext">Toll tax, state parking fees and driver allowance</span>
+                                    </td>
+                                    <td class="col-qty border-r">1</td>
+                                    <td class="col-rate" id="prevTollRate">All Included</td>
+                                    <td class="col-disc border-r">0%</td>
+                                    <td class="col-amt" id="prevTollAmt">0.00</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr class="inv-total-row">
+                                    <td colspan="6" class="inv-total-cell">
+                                        Total: <span id="prevGrandTotal">19500.00</span>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <!-- Totals Breakdown (Right-aligned) -->
+                    <div class="inv-totals-wrap">
+                        <div class="inv-totals-box">
+                            <div class="inv-total-line payable-line">
+                                <span>Payable:</span>
+                                <span id="prevPayable">19500</span>
+                            </div>
+                            <div class="inv-total-line">
+                                <span>Paid (Advance):</span>
+                                <span id="prevAdvancePaid">2000.0</span>
+                            </div>
+                            <div class="inv-total-line balance-line">
+                                <span>Balance:</span>
+                                <span id="prevBalanceDisplay">17500</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Attached Boxes Container (Exact replica: Words, Notes, Signatures joined) -->
+                    <div class="inv-boxes-container">
+                        <!-- Box 1: Amount in words -->
+                        <div class="inv-box-section">
+                            <div class="inv-box-header">Invoice amount in words</div>
+                            <span class="inv-amount-words" id="prevAmountWords">Nineteen Thousand Five Hundred Rupees
+                                Only.</span>
+                        </div>
+
+                        <!-- Box 2: Important Trip Notes & Conditions -->
+                        <div class="inv-box-section">
+                            <div class="inv-box-header">Important Trip Notes & Conditions</div>
+                            <div style="font-weight:700; color:#dc2626; margin-bottom:0.35rem;"
+                                id="prevStartKmHighlight">
+                                ⚡ Start Km Office To Office | Balance: <span id="prevBalanceNoteText">As per Km
+                                    Calculate & Toll Parking</span>
+                            </div>
+                            <ol class="inv-terms-list" id="prevTermsList">
+                                <li>No AC in ghat section.</li>
+                                <li>Extra km beyond limit will be charged as per specified rate.</li>
+                                <li>After 12:00 AM, night driver bhatta / hourly charges applicable.</li>
+                                <li>Other states border tax & permit to be paid directly as per actual.</li>
+                                <li>In case booking date or km extends, extra charges will be applicable.</li>
+                            </ol>
+
+                            <div class="inv-coordinator-note">
+                                <div>
+                                    Coordinator: <strong id="prevCoordinatorName">Mr. Prasenjeet Waghmare</strong>
+                                    (<span id="prevCoordinatorPhone">+91 7020460865</span>)
+                                    <div style="font-size:0.75rem; color:#64748b;">Will coordinate for chauffeur and
+                                        vehicle details via SMS</div>
+                                </div>
+                            </div>
+
+                            <div class="inv-safe-journey-msg">
+                                "Thank you for choosing our service. Have a Safe Journey!" 🙏
+                            </div>
+                        </div>
+
+                        <!-- Box 3: Customer Signature & Authorized Signature -->
+                        <div class="inv-signatures-row">
+                            <div class="inv-sig-box">
+                                Customer Signature
+                            </div>
+                            <div class="inv-sig-box">
+                                Authorized Signature
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- History Modal -->
+    <div class="modal-overlay" id="historyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-history"></i> Recent Booking Invoices</h3>
+                <button class="modal-close-btn" onclick="closeHistory()">✕</button>
+            </div>
+            <div id="historyList">
+                <p style="color:var(--text-muted); font-size:0.85rem;">No saved invoices yet.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-notice" id="toastNotice">
+        <i class="fas fa-info-circle"></i>
+        <span id="toastMsg">Notification message</span>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // ============================================================
+        //  CONFIGURATION: Google Apps Script Web App URL
+        // ============================================================
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxg1A9YBLLHbkZYLvBST1iPpjT3MgMYUMyf48ohMPxaurzOs0Om9E6mgycAN3BFKUmKew/exec'; // <-- Paste your deployed Google Apps Script URL here
+
+        // Preset Places for Quick Tags
+        const PRESET_PLACES = [
+            'Akkalkot', 'Pandharpur', 'Tuljapur', 'Gangapur', 'Jejuri',
+            'Shirdi', 'Nashik', 'Pune', 'Mumbai', 'Kolhapur',
+            'Hyderabad', 'Goa', 'Solapur', 'Vijayapura', 'Gulbarga',
+            'Lonavala', 'Mahabaleshwar', 'Ajanta Ellora'
+        ];
+
+        let selectedPlaces = ['Akkalkot', 'Pandharpur', 'Tuljapur'];
+
+        // ============================================================
+        //  NUMBER TO WORDS CONVERTER (INDIAN RUPEES)
+        // ============================================================
+        function numberToWords(num) {
+            const a = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+                'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+            const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+            const n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+            if (!n) return '';
+            let str = '';
+            str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + ' Crore ' : '';
+            str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + ' Lakh ' : '';
+            str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + ' Thousand ' : '';
+            str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + ' Hundred ' : '';
+            str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + ' ' : '';
+            return str.trim() ? str.trim() + ' Rupees Only.' : 'Zero Rupees Only.';
+        }
+
+        // ============================================================
+        //  INIT & EVENT LISTENERS
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set default date & time
+            const now = new Date();
+            document.getElementById('invDate').value = now.toISOString().split('T')[0];
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('invTime').value = `${hours}:${minutes}`;
+
+            // Set default travel dates
+            document.getElementById('dateFrom').value = now.toISOString().split('T')[0];
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('dateTo').value = tomorrow.toISOString().split('T')[0];
+
+            renderPlaceTags();
+            renderSelectedPlaces();
+            calculateTotals();
+            updateHistoryCount();
+
+            // Enter key on custom place
+            document.getElementById('customPlaceInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addCustomPlace();
+                }
+            });
+        });
+
+        // ============================================================
+        //  PLACES MANAGEMENT
+        // ============================================================
+        function renderPlaceTags() {
+            const container = document.getElementById('placeTags');
+            container.innerHTML = PRESET_PLACES.map(place => `
+                <span class="place-tag ${selectedPlaces.includes(place) ? 'active' : ''}" 
+                      onclick="togglePlace('${place}')">${place}</span>
+            `).join('');
+        }
+
+        function togglePlace(place) {
+            if (selectedPlaces.includes(place)) {
+                selectedPlaces = selectedPlaces.filter(p => p !== place);
+            } else {
+                selectedPlaces.push(place);
+            }
+            renderPlaceTags();
+            renderSelectedPlaces();
+            updatePreview();
+        }
+
+        function addCustomPlace() {
+            const input = document.getElementById('customPlaceInput');
+            const val = input.value.trim();
+            if (val && !selectedPlaces.includes(val)) {
+                selectedPlaces.push(val);
+                input.value = '';
+                renderSelectedPlaces();
+                updatePreview();
+            }
+        }
+
+        function removePlace(place) {
+            selectedPlaces = selectedPlaces.filter(p => p !== place);
+            renderPlaceTags();
+            renderSelectedPlaces();
+            updatePreview();
+        }
+
+        function renderSelectedPlaces() {
+            const container = document.getElementById('selectedPlacesBox');
+            if (selectedPlaces.length === 0) {
+                container.innerHTML = '<span style="color:var(--text-muted); font-size:0.75rem;">No places selected</span>';
+            } else {
+                container.innerHTML = selectedPlaces.map(p => `
+                    <span class="selected-place-chip">
+                        ${p} <span class="remove" onclick="removePlace('${p}')">×</span>
+                    </span>
+                `).join('');
+            }
+        }
+
+        // ============================================================
+        //  TOTALS & AMOUNTS CALCULATION
+        // ============================================================
+        function calculateTotals() {
+            const total = parseFloat(document.getElementById('totalAmount').value) || 0;
+            const advance = parseFloat(document.getElementById('advancePaid').value) || 0;
+            const balance = Math.max(0, total - advance);
+
+            document.getElementById('balanceAmount').value = balance;
+
+            // Auto-update amount in words if total changed
+            const words = numberToWords(total);
+            if (words) {
+                document.getElementById('amountInWords').value = words;
+            }
+
+            updatePreview();
+        }
+
+        // ============================================================
+        //  UPDATE LIVE PREVIEW
+        // ============================================================
+        function updatePreview() {
+            // Invoice Meta
+            const invNum = document.getElementById('invNumber').value || 'AT-2026-0001';
+            document.getElementById('prevInvNum').textContent = invNum;
+
+            const invDateVal = document.getElementById('invDate').value;
+            if (invDateVal) {
+                const d = new Date(invDateVal);
+                document.getElementById('prevInvDate').textContent = d.toLocaleDateString('en-GB', {
+                    day: 'numeric', month: 'short', year: 'numeric'
+                });
+            }
+
+            const invTimeVal = document.getElementById('invTime').value;
+            if (invTimeVal) {
+                const [h, m] = invTimeVal.split(':');
+                const hour = parseInt(h);
+                const ampm = hour >= 12 ? 'PM' : 'AM';
+                const formattedHour = hour % 12 || 12;
+                document.getElementById('prevInvTime').textContent = `${String(formattedHour).padStart(2, '0')}:${m} ${ampm}`;
+            }
+
+            // Customer
+            const custName = document.getElementById('customerName').value.trim() || 'Ajinkya Jadhav';
+            const custPhone = document.getElementById('customerPhone').value.trim() || '9022660311';
+            const custEmail = document.getElementById('customerEmail').value.trim();
+            const pickup = document.getElementById('pickupLocation').value.trim() || 'Solapur';
+
+            document.getElementById('prevCustName').textContent = custName;
+            document.getElementById('prevCustPhone').textContent = custPhone;
+            document.getElementById('prevPickup').textContent = pickup;
+
+            const pickupTimeVal = document.getElementById('pickupTime').value;
+            if (pickupTimeVal) {
+                const [ph, pm] = pickupTimeVal.split(':');
+                const pHour = parseInt(ph);
+                const pAmpm = pHour >= 12 ? 'PM' : 'AM';
+                const pFormattedHour = pHour % 12 || 12;
+                document.getElementById('prevPickupTime').textContent = `${String(pFormattedHour).padStart(2, '0')}:${pm} ${pAmpm}`;
+            }
+
+            const emailRow = document.getElementById('prevEmailRow');
+            if (custEmail) {
+                emailRow.style.display = 'block';
+                document.getElementById('prevCustEmail').textContent = custEmail;
+            } else {
+                emailRow.style.display = 'none';
+            }
+
+            // Vehicle & Trip
+            const vehType = document.getElementById('vehicleType').value;
+            const vehReg = document.getElementById('vehicleReg').value.trim() || 'MH13EB0821';
+            document.getElementById('prevVehicleName').textContent = vehType;
+            document.getElementById('prevVehReg').textContent = vehReg;
+
+            const dFrom = document.getElementById('dateFrom').value;
+            const dTo = document.getElementById('dateTo').value;
+            let datesText = '—';
+            if (dFrom && dTo) {
+                datesText = `${formatDisplayDate(dFrom)} To ${formatDisplayDate(dTo)}`;
+            } else if (dFrom) {
+                datesText = formatDisplayDate(dFrom);
+            }
+            document.getElementById('prevDates').textContent = datesText;
+
+            const drop = document.getElementById('dropInfo').value.trim();
+            const placesStr = selectedPlaces.length > 0 ? selectedPlaces.join(', ') : 'Solapur';
+            document.getElementById('prevPlaces').textContent = drop ? `${placesStr} (${drop})` : placesStr;
+
+            const kmPolicy = document.getElementById('kmPolicy').value.trim() || 'Start Km Office To Office';
+            document.getElementById('prevKmPolicyText').textContent = kmPolicy;
+            document.getElementById('prevStartKmHighlight').innerHTML = `⚡ ${kmPolicy} | Balance: <span id="prevBalanceNoteText">${document.getElementById('balanceNote').value}</span>`;
+
+            // Table Line Items
+            document.getElementById('prevItemTitle').textContent = `${vehType} — Booking Package`;
+            document.getElementById('prevItemSubtext').textContent = `Pickup: ${pickup} | Tour: ${placesStr} ${drop ? '— ' + drop : ''}`;
+
+            const duration = document.getElementById('durationDays').value || '2 Days';
+            const kmLimit = document.getElementById('kmLimit').value || '600 km Limit';
+            const extraKm = document.getElementById('extraKmRate').value || '₹20 / Km';
+            const baseRate = document.getElementById('baseRate').value || '1200';
+
+            document.getElementById('prevItemQty').textContent = duration;
+            document.getElementById('prevItemRate').textContent = baseRate;
+            document.getElementById('prevKmLimitText').textContent = kmLimit;
+            document.getElementById('prevExtraKmText').textContent = extraKm;
+
+            const total = parseFloat(document.getElementById('totalAmount').value) || 0;
+            const advance = parseFloat(document.getElementById('advancePaid').value) || 0;
+            const balance = Math.max(0, total - advance);
+
+            document.getElementById('prevItemBaseAmt').textContent = total.toFixed(2);
+            document.getElementById('prevGrandTotal').textContent = total.toFixed(2);
+            document.getElementById('prevPayable').textContent = total;
+            document.getElementById('prevAdvancePaid').textContent = advance.toFixed(1);
+            document.getElementById('prevBalanceDisplay').textContent = balance;
+
+            const tollText = document.getElementById('tollParkingText').value || 'Included';
+            document.getElementById('prevTollRate').textContent = tollText;
+
+            // Amount in words
+            document.getElementById('prevAmountWords').textContent = document.getElementById('amountInWords').value;
+
+            // Terms
+            const termsText = document.getElementById('termsInput').value;
+            const termsList = document.getElementById('prevTermsList');
+            const lines = termsText.split('\n').filter(l => l.trim().length > 0);
+            termsList.innerHTML = lines.map(line => {
+                const cleaned = line.replace(/^\d+[\.\-\)]\s*/, '');
+                return `<li>${cleaned}</li>`;
+            }).join('');
+
+            // Coordinator
+            document.getElementById('prevCoordinatorName').textContent = document.getElementById('coordName').value;
+            document.getElementById('prevCoordinatorPhone').textContent = document.getElementById('coordMobile').value;
+        }
+
+        function formatDisplayDate(dateStr) {
+            if (!dateStr) return '';
+            const d = new Date(dateStr);
+            const day = String(d.getDate()).padStart(2, '0');
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const year = d.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        // ============================================================
+        //  TOAST NOTICE
+        // ============================================================
+        function showToast(msg, type = 'info') {
+            const toast = document.getElementById('toastNotice');
+            const text = document.getElementById('toastMsg');
+            text.textContent = msg;
+            toast.className = `toast-notice ${type} show`;
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // ============================================================
+        //  PDF GENERATION & DOWNLOAD
+        // ============================================================
+        function downloadPDF() {
+            saveInvoiceToHistory();
+            const element = document.getElementById('invoiceDocument');
+            const custName = document.getElementById('customerName').value.trim() || 'Customer';
+            const invNum = document.getElementById('invNumber').value.trim() || 'AT';
+
+            const opt = {
+                margin: [5, 5, 5, 5],
+                filename: `${invNum}_${custName.replace(/\s+/g, '_')}_Invoice.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, letterRendering: true, scrollY: 0 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            showToast('Generating PDF Invoice...', 'info');
+            html2pdf().set(opt).from(element).save().then(() => {
+                showToast('✓ PDF Invoice downloaded successfully!', 'success');
+            }).catch(err => {
+                showToast('PDF generation failed: ' + err.message, 'error');
+            });
+        }
+
+        // ============================================================
+        //  PRINT INVOICE
+        // ============================================================
+        function printInvoice() {
+            saveInvoiceToHistory();
+            window.print();
+        }
+
+        // ============================================================
+        //  SEND EMAIL WITH PDF ATTACHMENT (VIA GOOGLE APPS SCRIPT)
+        // ============================================================
+        async function sendInvoiceEmail() {
+            const email = document.getElementById('customerEmail').value.trim();
+            if (!email) {
+                showToast('Please enter the customer email address first!', 'error');
+                document.getElementById('customerEmail').focus();
+                return;
+            }
+
+            if (!APPS_SCRIPT_URL) {
+                showToast('Google Apps Script URL is not configured yet! See admin/google-apps-script.js for setup.', 'error');
+                return;
+            }
+
+            saveInvoiceToHistory();
+            showToast('Generating PDF & sending email to customer...', 'info');
+
+            const element = document.getElementById('invoiceDocument');
+
+            try {
+                // Generate base64 PDF
+                const pdfBase64Uri = await html2pdf()
+                    .set({
+                        margin: [5, 5, 5, 5],
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2, useCORS: true, letterRendering: true, scrollY: 0 },
+                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                    })
+                    .from(element)
+                    .outputPdf('datauristring');
+
+                const base64Data = pdfBase64Uri.split(',')[1];
+                const custName = document.getElementById('customerName').value.trim() || 'Valued Customer';
+                const invNum = document.getElementById('invNumber').value.trim() || 'AT-2026';
+
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        action: 'send_invoice_pdf',
+                        customerEmail: email,
+                        customerName: custName,
+                        customerPhone: document.getElementById('customerPhone').value.trim(),
+                        voucherNumber: invNum,
+                        dateFrom: document.getElementById('dateFrom').value,
+                        dateTo: document.getElementById('dateTo').value,
+                        vehicleType: document.getElementById('vehicleType').value,
+                        pdfBase64: base64Data
+                    })
+                });
+
+                const result = await response.json();
+                if (result.result === 'success') {
+                    showToast(`✓ Invoice PDF successfully emailed to ${email}!`, 'success');
+                } else {
+                    showToast('Failed to send email: ' + (result.error || 'Unknown error'), 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Email dispatch error: ' + err.message, 'error');
+            }
+        }
+
+        // ============================================================
+        //  SHARE ON WHATSAPP
+        // ============================================================
+        function shareWhatsApp() {
+            const phone = document.getElementById('customerPhone').value.replace(/\D/g, '');
+            if (!phone) {
+                showToast('Please enter customer contact number!', 'error');
+                document.getElementById('customerPhone').focus();
+                return;
+            }
+
+            saveInvoiceToHistory();
+
+            const name = document.getElementById('customerName').value.trim();
+            const greeting = name ? `Dear *${name}*,\n` : '';
+            const coordName = document.getElementById('coordName').value.trim() || 'Mr. Prasenjeet Waghmare';
+            const coordMobile = document.getElementById('coordMobile').value.trim() || '7020460865';
+
+            const msg = `*Thanks For Cab Booking with Abhijeet Travels!* 🙏
+${greeting}*Your Vehicle Is Confirmed.* ✅
+
+📎 *Please find your Booking Confirmation & Invoice PDF attached with this message.*
+
+For any assistance or questions:
+*${coordName}*
+Mo- ${coordMobile}
+
+*"Have a Safe Journey"* 🙏
+www.abhijeettravels.com`;
+
+            const fullPhone = phone.startsWith('91') ? phone : '91' + phone;
+            window.open(`https://wa.me/${fullPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // ============================================================
+        //  CLEAR FORM
+        // ============================================================
+        function clearForm() {
+            if (!confirm('Are you sure you want to clear the form?')) return;
+            document.getElementById('customerName').value = '';
+            document.getElementById('customerPhone').value = '';
+            document.getElementById('customerEmail').value = '';
+            document.getElementById('vehicleReg').value = '';
+            document.getElementById('dropInfo').value = '';
+            selectedPlaces = [];
+            renderPlaceTags();
+            renderSelectedPlaces();
+            calculateTotals();
+            showToast('Form cleared', 'info');
+        }
+
+        // ============================================================
+        //  LOCAL STORAGE HISTORY
+        // ============================================================
+        function getFormDataObj() {
+            return {
+                id: Date.now(),
+                invNumber: document.getElementById('invNumber').value,
+                invDate: document.getElementById('invDate').value,
+                invTime: document.getElementById('invTime').value,
+                customerName: document.getElementById('customerName').value,
+                customerPhone: document.getElementById('customerPhone').value,
+                customerEmail: document.getElementById('customerEmail').value,
+                pickupLocation: document.getElementById('pickupLocation').value,
+                pickupTime: document.getElementById('pickupTime').value,
+                vehicleType: document.getElementById('vehicleType').value,
+                vehicleReg: document.getElementById('vehicleReg').value,
+                dateFrom: document.getElementById('dateFrom').value,
+                dateTo: document.getElementById('dateTo').value,
+                selectedPlaces: selectedPlaces,
+                dropInfo: document.getElementById('dropInfo').value,
+                durationDays: document.getElementById('durationDays').value,
+                kmLimit: document.getElementById('kmLimit').value,
+                extraKmRate: document.getElementById('extraKmRate').value,
+                baseRate: document.getElementById('baseRate').value,
+                tollParkingText: document.getElementById('tollParkingText').value,
+                totalAmount: document.getElementById('totalAmount').value,
+                advancePaid: document.getElementById('advancePaid').value,
+                balanceAmount: document.getElementById('balanceAmount').value,
+                balanceNote: document.getElementById('balanceNote').value,
+                coordName: document.getElementById('coordName').value,
+                coordMobile: document.getElementById('coordMobile').value,
+                savedAt: new Date().toISOString()
+            };
+        }
+
+        function saveInvoiceToHistory() {
+            const data = getFormDataObj();
+            if (!data.customerName && !data.customerPhone) return;
+
+            let history = JSON.parse(localStorage.getItem('at_invoices_history') || '[]');
+            history = history.filter(h => h.invNumber !== data.invNumber);
+            history.unshift(data);
+            if (history.length > 25) history.pop();
+            localStorage.setItem('at_invoices_history', JSON.stringify(history));
+            updateHistoryCount();
+        }
+
+        function updateHistoryCount() {
+            const history = JSON.parse(localStorage.getItem('at_invoices_history') || '[]');
+            document.getElementById('historyCount').textContent = history.length;
+        }
+
+        function openHistory() {
+            const modal = document.getElementById('historyModal');
+            const list = document.getElementById('historyList');
+            const history = JSON.parse(localStorage.getItem('at_invoices_history') || '[]');
+
+            if (history.length === 0) {
+                list.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem; padding:1rem 0;">No saved invoices yet.</p>';
+            } else {
+                list.innerHTML = history.map((item, idx) => `
+                    <div class="history-item" onclick="loadHistoryItem(${idx})">
+                        <div class="history-item-top">
+                            <span>${item.customerName || 'Unnamed'} — ${item.invNumber}</span>
+                            <span style="color:var(--accent-blue); font-weight:700;">₹${item.totalAmount || '0'}</span>
+                        </div>
+                        <div class="history-item-sub">
+                            ${item.vehicleType} | ${item.selectedPlaces ? item.selectedPlaces.join(', ') : ''} | ${new Date(item.savedAt).toLocaleDateString('en-GB')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+            modal.classList.add('show');
+        }
+
+        function closeHistory() {
+            document.getElementById('historyModal').classList.remove('show');
+        }
+
+        function loadHistoryItem(idx) {
+            const history = JSON.parse(localStorage.getItem('at_invoices_history') || '[]');
+            const item = history[idx];
+            if (!item) return;
+
+            document.getElementById('invNumber').value = item.invNumber || '';
+            document.getElementById('invDate').value = item.invDate || '';
+            document.getElementById('invTime').value = item.invTime || '';
+            document.getElementById('customerName').value = item.customerName || '';
+            document.getElementById('customerPhone').value = item.customerPhone || '';
+            document.getElementById('customerEmail').value = item.customerEmail || '';
+            document.getElementById('pickupLocation').value = item.pickupLocation || 'Solapur';
+            document.getElementById('pickupTime').value = item.pickupTime || '00:00';
+            document.getElementById('vehicleType').value = item.vehicleType || 'Force Cruiser AC';
+            document.getElementById('vehicleReg').value = item.vehicleReg || '';
+            document.getElementById('dateFrom').value = item.dateFrom || '';
+            document.getElementById('dateTo').value = item.dateTo || '';
+            document.getElementById('dropInfo').value = item.dropInfo || '';
+            document.getElementById('durationDays').value = item.durationDays || '2 Days';
+            document.getElementById('kmLimit').value = item.kmLimit || '600 km Limit';
+            document.getElementById('extraKmRate').value = item.extraKmRate || '₹20 / Km';
+            document.getElementById('baseRate').value = item.baseRate || '1200';
+            document.getElementById('totalAmount').value = item.totalAmount || '19500';
+            document.getElementById('advancePaid').value = item.advancePaid || '2000';
+            document.getElementById('balanceNote').value = item.balanceNote || 'As per Km Calculate & Toll Parking';
+            document.getElementById('coordName').value = item.coordName || 'Mr. Prasenjeet Waghmare';
+            document.getElementById('coordMobile').value = item.coordMobile || '+91 7020460865';
+
+            selectedPlaces = item.selectedPlaces || [];
+            renderPlaceTags();
+            renderSelectedPlaces();
+            calculateTotals();
+            closeHistory();
+            showToast('Invoice loaded from history', 'info');
+        }
+    </script>
+</body>
+
+</html>
