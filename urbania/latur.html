@@ -315,6 +315,44 @@
         </div>
     </section>
 
+    <!-- ===================== FORCE URBANIA VEHICLE GALLERY (ALL SIDES) ===================== -->
+    <section class="urbania-slider-section" id="vehicle-gallery">
+        <div class="section-inner">
+            <h2 class="section-title">Force Urbania Vehicle Tour — 360° All Sides</h2>
+            <p class="section-description">Inspect our luxury Force Urbania fleet from every angle — front grille, driver & passenger profile, boot barn doors, panoramic windows, and plush interior cabin.</p>
+
+            <div class="urbania-slider-container" id="urbania-slider">
+                <!-- Previous Button -->
+                <button class="slider-arrow prev" id="slider-prev-btn" aria-label="Previous image">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+
+                <!-- Next Button -->
+                <button class="slider-arrow next" id="slider-next-btn" aria-label="Next image">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+                <!-- Viewport & Track -->
+                <div class="slider-viewport" id="slider-viewport">
+                    <div class="slider-track" id="slider-track">
+                        <!-- Populated dynamically via JavaScript with all images from images/Urbania -->
+                    </div>
+                </div>
+
+                <!-- Controls Bar: Counter, Dots, Swipe Hint -->
+                <div class="slider-controls">
+                    <div class="slider-counter" id="slider-counter">01 / 20</div>
+                    <div class="slider-dots" id="slider-dots">
+                        <!-- Populated dynamically via JavaScript -->
+                    </div>
+                    <div class="slider-hint">
+                        <i class="fas fa-hand-pointer"></i> Use arrows or swipe to browse
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===================== PRICE LIST TABLE ===================== -->
     <section class="vehicle-section" style="background: var(--bg-color);">
         <div class="section-inner">
@@ -416,6 +454,53 @@
                     Note: Minimum billing distance is 300 km per calendar day. Toll charges, parking fees, and
                     interstate border entry permits (if travelling outside Maharashtra) are extra at actuals.
                 </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== VARIANTS ===================== -->
+    <section class="vehicle-section vehicle-section-alt">
+        <div class="section-inner">
+            <h2 class="section-title">Available Urbania Configurations</h2>
+            <p class="section-description">Pick the ideal seating capacity tailored for your group's size and luggage requirements.</p>
+
+            <div class="variants-grid">
+                <div class="variant-card featured">
+                    <div class="variant-badge">Featured 16-Seater</div>
+                    <div class="variant-seats">16</div>
+                    <div class="variant-label">Seater</div>
+                    <ul class="variant-features">
+                        <li><i class="fas fa-check"></i> Most popular configuration for Latur groups</li>
+                        <li><i class="fas fa-check"></i> 2x1 executive pushback recliner seats</li>
+                        <li><i class="fas fa-check"></i> Individual roof AC vent & USB charger for every seat</li>
+                        <li><i class="fas fa-check"></i> Expansive luggage boot with barn-door access</li>
+                    </ul>
+                    <a href="#book-urbania" class="btn vc-book-btn" style="display:block; text-align:center;">Get Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="variant-card">
+                    <div class="variant-seats">20</div>
+                    <div class="variant-label">Seater</div>
+                    <ul class="variant-features">
+                        <li><i class="fas fa-check"></i> Ideal for medium family tours & corporate teams</li>
+                        <li><i class="fas fa-check"></i> Full dual-blower AC with personalized controls</li>
+                        <li><i class="fas fa-check"></i> Outstation trips to Tuljapur, Parli Vaijnath & Pandharpur</li>
+                        <li><i class="fas fa-check"></i> Wide walk-through aisle with high ceiling</li>
+                    </ul>
+                    <a href="#book-urbania" class="btn vc-book-btn" style="display:block; text-align:center;">Get Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="variant-card">
+                    <div class="variant-seats">26</div>
+                    <div class="variant-label">Seater</div>
+                    <ul class="variant-features">
+                        <li><i class="fas fa-check"></i> Best for large wedding baraat & pilgrim groups</li>
+                        <li><i class="fas fa-check"></i> Supreme air-suspension comfort & maximum legroom</li>
+                        <li><i class="fas fa-check"></i> Multi-day long-distance highway circuits</li>
+                        <li><i class="fas fa-check"></i> Maximum luggage hold for 26 passengers</li>
+                    </ul>
+                    <a href="#book-urbania" class="btn vc-book-btn" style="display:block; text-align:center;">Get Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
         </div>
     </section>
@@ -838,6 +923,9 @@
     <script src="../script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            if (typeof initUrbaniaSlider === 'function') {
+                initUrbaniaSlider();
+            }
             const vehicleForm = document.getElementById('urbania-booking-form');
             if (vehicleForm) {
                 vehicleForm.addEventListener('submit', function (e) {
